@@ -79,4 +79,9 @@ public class Dijkstra {
         }
         System.out.print("Chi phi:" + ngan1[kt]+"\n");
     }
+public static void main(String argv[]){
+	Dijkstra ds=new Dijkstra();
+	ds.init();
+	ds.dijkstra(0,5);
+}
 }
