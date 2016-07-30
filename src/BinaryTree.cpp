@@ -168,6 +168,25 @@ void deleteNode(NODE* &root, int x) {
 		} else if (p->key < x) {
 			p->right = NULL;
 		}
+		delete(del);
+		return;
+	} else if (del->left != NULL && del->right != NULL) {
+
+	} else {
+		NODE* temp = del;
+		NODE* p = findParent(root, del);
+		if (del->left != NULL) {
+			del = del->left;
+		} else if (del->right != NULL) {
+			del = del->right;
+		}
+		if (p->key > del->key) {
+			p->left = del;
+		} else if (p->key < del->key) {
+			p->right = del;
+		}
+		delete(temp);
+		return;
 	}
 
 }
@@ -178,7 +197,7 @@ int main() {
 	int n = 11;
 	createTree(root, a, n);
 
-	deleteNode(root, 65);
+	deleteNode(root, 10);
 
 	NLR(root);
 	cout << endl;
@@ -186,25 +205,25 @@ int main() {
 	cout << endl;
 	RNL(root);
 	cout << endl;
-	NODE* searchR = searchNode(root, 21);
-	if (searchR != NULL) {
-		cout << "Search found " << searchR->key << endl;
-		if (searchR->left != NULL) {
-			cout << "Search found left " << searchR->left->key << endl;
-		}
-		if (searchR->right != NULL) {
-			cout << "Search found right " << searchR->right->key << endl;
-		}
-	}
-
-	int d = 15;
-	NODE* parent = findParent(root, d);
-	cout << "Parent of " << d << " is " << parent->key;
-
-	cout << endl << endl;
-
-	NODE* find = findNode(root, 62);
-	NODE* fp = findParent(root, find);
-	cout << "Parent of " << find->key << " is " << fp->key;
+//	NODE* searchR = searchNode(root, 21);
+//	if (searchR != NULL) {
+//		cout << "Search found " << searchR->key << endl;
+//		if (searchR->left != NULL) {
+//			cout << "Search found left " << searchR->left->key << endl;
+//		}
+//		if (searchR->right != NULL) {
+//			cout << "Search found right " << searchR->right->key << endl;
+//		}
+//	}
+//
+//	int d = 15;
+//	NODE* parent = findParent(root, d);
+//	cout << "Parent of " << d << " is " << parent->key;
+//
+//	cout << endl << endl;
+//
+//	NODE* find = findNode(root, 62);
+//	NODE* fp = findParent(root, find);
+//	cout << "Parent of " << find->key << " is " << fp->key;
 	return 0;
 }
