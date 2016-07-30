@@ -156,6 +156,16 @@ NODE* findNode(NODE* root, int x) {
 	}
 }
 
+NODE* findMin(NODE* del) {
+	if (del == NULL) {
+		return NULL;
+	}
+	if (del->left != NULL) {
+		return findMin(del->left);
+	}
+	return del;
+}
+
 void deleteNode(NODE* &root, int x) {
 	if (root == NULL) {
 		return;
@@ -171,7 +181,16 @@ void deleteNode(NODE* &root, int x) {
 		delete(del);
 		return;
 	} else if (del->left != NULL && del->right != NULL) {
-
+		NODE* min = findMin(del->right);
+		NODE* p = findParent(root, del);
+		min->left = del->left;
+		p->left = min;
+		if (p->key > del->right->key) {
+			p->left = del->right;
+		} else if (p->key < del->right->key) {
+			p->right = del->right;
+		}
+		delete(del);
 	} else {
 		NODE* temp = del;
 		NODE* p = findParent(root, del);
@@ -197,7 +216,7 @@ int main() {
 	int n = 11;
 	createTree(root, a, n);
 
-	deleteNode(root, 10);
+	deleteNode(root, 21);
 
 	NLR(root);
 	cout << endl;
