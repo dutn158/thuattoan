@@ -123,11 +123,63 @@ void createTree(NODE* &root, int a[], int n) {
 
 }
 
+NODE* findParent(NODE* root, int x) {
+	if (root->left != NULL) {
+		if (root->left->key == x) {
+			return root;
+		}
+	}
+	if (root->right != NULL) {
+		if (root->right->key == x) {
+			return root;
+		}
+	}
+	if (root->key > x) {
+		return findParent(root->left, x);
+	} else {
+		return findParent(root->right, x);
+	}
+}
+
+NODE* findParent(NODE* root, NODE* n) {
+	return findParent(root, n->key);
+}
+
+NODE* findNode(NODE* root, int x) {
+	if (root->key == x) {
+		return root;
+	}
+	if (root->key > x) {
+		return findNode(root->left, x);
+	} else {
+		return findNode(root->right, x);
+	}
+}
+
+void deleteNode(NODE* &root, int x) {
+	if (root == NULL) {
+		return;
+	}
+	NODE* del = findNode(root, x);
+	if (del->left == NULL && del->right == NULL) {
+		NODE* p = findParent(root, del);
+		if (p->key > x) {
+			p->left = NULL;
+		} else if (p->key < x) {
+			p->right = NULL;
+		}
+	}
+
+}
+
 int main() {
 	NODE* root = NULL;
 	int a[] = {43, 56, 21, 31, 9, 35, 10, 15, 19, 62, 65};
 	int n = 11;
 	createTree(root, a, n);
+
+	deleteNode(root, 65);
+
 	NLR(root);
 	cout << endl;
 	LNR(root);
@@ -145,5 +197,14 @@ int main() {
 		}
 	}
 
+	int d = 15;
+	NODE* parent = findParent(root, d);
+	cout << "Parent of " << d << " is " << parent->key;
+
+	cout << endl << endl;
+
+	NODE* find = findNode(root, 62);
+	NODE* fp = findParent(root, find);
+	cout << "Parent of " << find->key << " is " << fp->key;
 	return 0;
 }
