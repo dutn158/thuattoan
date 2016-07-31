@@ -41,6 +41,12 @@ void insertNode(NODE* &head, int x) {
 	f->next = n;
 }
 
+void insertFirst(NODE* &head, int x) {
+	NODE* n = createNode(x);
+	n->next = head;
+	head = n;
+}
+
 NODE* findParent(NODE* head, int x) {
 	if (head == NULL) {
 		return NULL;
@@ -96,14 +102,30 @@ void printLinkedList(NODE* head) {
 	}
 }
 
+void findMiddleLinkedList(NODE* head, NODE* head2) {
+	NODE* f = head;
+	NODE* f2 = head2;
+
+	if  (f2 == NULL) {
+		cout << "Middle is " << f->key << endl;
+	}
+	findMiddleLinkedList(head->next, head2->next->next);
+
+}
+
 int main(int argc, char **argv) {
 	NODE* head = NULL;
 	int a[] = {14, 16, 31, 26, 9, 5, 29, 51, 43, 10};
 	int n = 10;
 	createLinkedList(head, a, n);
-	deleteNode(head, 10);
+	insertFirst(head, 90);
+//	deleteNode(head, 10);
+	insertNode(head, 120);
 	printLinkedList(head);
 	cout << endl;
+
+	findMiddleLinkedList(head, head->next->next);
+
 	int f = 9;
 	cout << "Parent of "<< f << " is " << findParent(head, f)->key;
 	cout << endl;
