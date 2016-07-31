@@ -41,6 +41,44 @@ void insertNode(NODE* &head, int x) {
 	f->next = n;
 }
 
+NODE* findParent(NODE* head, int x) {
+	if (head == NULL) {
+		return NULL;
+	}
+	if (head->next != NULL) {
+		if (head->next->key == x) {
+			return head;
+		}
+		return findParent(head->next, x);
+	}
+	return NULL;
+}
+
+NODE* findNode(NODE* head, int x) {
+	if (head == NULL) {
+		return NULL;
+	}
+	if (head->key == x) {
+		return head;
+	} else {
+		return findNode(head->next, x);
+	}
+	return NULL;
+}
+
+void deleteNode(NODE* &head, int x) {
+	NODE* parent = findParent(head, x);
+	if (parent == NULL) {
+		NODE* f = head;
+		head = head->next;
+		delete(f);
+	} else {
+		NODE* n = findNode(head, x);
+		parent->next = n->next;
+		delete(n);
+	}
+}
+
 void createLinkedList(NODE* &head, int a[], int n) {
 	for (int i = 0; i < n; i++) {
 		insertNode(head, a[i]);
@@ -63,7 +101,11 @@ int main(int argc, char **argv) {
 	int a[] = {14, 16, 31, 26, 9, 5, 29, 51, 43, 10};
 	int n = 10;
 	createLinkedList(head, a, n);
+	deleteNode(head, 10);
 	printLinkedList(head);
+	cout << endl;
+	int f = 9;
+	cout << "Parent of "<< f << " is " << findParent(head, f)->key;
 	cout << endl;
 	return 0;
 }
