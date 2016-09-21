@@ -1,10 +1,3 @@
-/*
- * NguoiDuLich.cpp
- *
- *  Created on: Aug 1, 2016
- *      Author: TranDu
- */
-
 #include <iostream>
 using namespace std;
 

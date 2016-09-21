@@ -1,10 +1,3 @@
-/*
- * DayNhiPhan.cpp
- *
- *  Created on: Jul 31, 2016
- *      Author: TranDu
- */
-
 #include <iostream>
 using namespace std;
 

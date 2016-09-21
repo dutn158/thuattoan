@@ -1,9 +1,3 @@
-/*
- * ThoVaCongViec.cpp
- *
- *  Created on: Aug 3, 2016
- *      Author: TranDu
- */
 #include <iostream>
 using namespace std;
 
